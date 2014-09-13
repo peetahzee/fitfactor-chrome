@@ -4,8 +4,8 @@ document.getElementById('off').onclick = function() {
 document.getElementById('on').onclick = function() {
 	sendMsg({veil: true});
 }
-function sendMsg(msg) { 
-	var laserExtensionId = "gahfcakeibfejbgkacehbdaojiglmboj";
+function sendMsg(msg) {
+	var laserExtensionId = "hcoibkkgaadbdmoifphicfielhmmmkci";
 	var port = chrome.runtime.connect(laserExtensionId);
 	port.postMessage(msg);
 }

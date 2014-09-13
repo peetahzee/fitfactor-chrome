@@ -1,3 +1,5 @@
+var veilCounter = 0;
+
 function onReceive(info){
   var buf = info.data;
 
@@ -6,9 +8,26 @@ function onReceive(info){
   //arduino writes ascii
   var good = bytes[0] == 49;
 
-  var contentWindow = chrome.app.window.getAll()[0].contentWindow;
-  contentWindow.document.body.innerHTML += (good == 1) ? "true" : "false";
+  //simple saturation counter to prevent flickering
+  if(!good) {
+    veilCounter++;
+  } else {
+    veilCounter = 3;
+  }
+
+  if(veilCounter > 4) {
+    sendMsg({veil: true});
+  } else {
+    sendMsg({veil: false});
+  }
 }
+
+function sendMsg(msg) {
+  var laserExtensionId = "hcoibkkgaadbdmoifphicfielhmmmkci";
+  var port = chrome.runtime.connect(laserExtensionId);
+  port.postMessage(msg);
+}
+
 
 chrome.app.runtime.onLaunched.addListener(function() {
   console.log('launched');
