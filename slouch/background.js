@@ -23,7 +23,7 @@ function onReceive(info){
 }
 
 function sendMsg(msg) {
-  var laserExtensionId = "hcoibkkgaadbdmoifphicfielhmmmkci";
+  var laserExtensionId = "gahfcakeibfejbgkacehbdaojiglmboj";
   var port = chrome.runtime.connect(laserExtensionId);
   port.postMessage(msg);
 }

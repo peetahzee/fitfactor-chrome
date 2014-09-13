@@ -19,6 +19,15 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
   port.onMessage.addListener(send);
 });
 
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log('received request', request);
+    console.log(sender);
+    chrome.tabs.sendMessage(sender.tab.id, {veil: true});
+  }
+);
+
+
 function notify(userId, forUserId){
   var notifyUser = new Parse.User();
   notifyUser.id = userId;
