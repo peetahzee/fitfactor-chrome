@@ -45,8 +45,14 @@ function notify(userId, forUserId){
 
 function checkParse(){
   var StepCountUpdate = Parse.Object.extend('StepCountUpdate');
-  var query = new Parse.Query(StepCountUpdate);
-  query.equalTo('user', user);
+  var recentSteps = new Parse.Query(StepCountUpdate);
+  recentSteps.equalTo('user', user);
+
+  var FriendUnlock = Parse.Object.extend('FriendUnlock');
+  var friendQuery = new Parse.Query(FriendUnlock);
+  friendQuery.equalTo('unlockFor', user);
+
+  var query = Parse.Query.or(recentSteps, friendQuery);
   query.find({
     success: function(results) {
       // Do something with the returned Parse.Object values
