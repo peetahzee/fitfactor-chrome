@@ -1,18 +1,22 @@
-var blockDiv = null;
+var blockDiv = document.createElement('div');
+blockDiv.setAttribute('id', 'veil');
+blockDiv.innerHTML = '<i class="fa fa-minus-circle"></i><h1>Blocked</h1><p>Sit up straight!</p>';
+document.getElementsByTagName('body')[0].appendChild(blockDiv);
+
+var veilActive = false;
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   	console.log(request)
   	if(request.veil) {
-  		if (!blockDiv) {
-		 		blockDiv = document.createElement('div');
-	  		blockDiv.setAttribute('style', 'width:100%;height:100%;background:#000;position:absolute;top:0;left:0;z-index:9999');
-	  		document.getElementsByTagName('body')[0].appendChild(blockDiv);
+  		if (!veilActive) {
+        blockDiv.setAttribute('class', 'active');
+        veilActive = true;
 	  	}
 	 	} else {
-	 		if (blockDiv) {
-  			document.getElementsByTagName('body')[0].removeChild(blockDiv);
-  			blockDiv = null;
+	 		if (veilActive) {
+        blockDiv.setAttribute('class', '');
+        veilActive = false;
   		}
   	}
   }

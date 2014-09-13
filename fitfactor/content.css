@@ -1,0 +1,39 @@
+#veil {
+	background: linear-gradient(rgba(7, 104, 144, 0.98) 0%, rgba(1,22,31,0.98) 50%);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	opacity: 0;
+	transition: 1s opacity;
+	font-family: "Helvetica Neue";
+	padding: 10%;
+	color: #fff;
+	text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}
+#veil.active {
+	opacity: 1;
+}
+
+#veil h1 {
+	color: #fff;
+	font-size: 30px;
+	line-height: 40px;
+	margin: 0;
+	font-weight: 600;
+}
+
+#veil i {
+	font-size: 70px;
+	float: left;
+	margin-right: 20px;
+}
+
+#veil p {
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 20px;
+	font-weight: 300;
+	margin: 0;
+}
