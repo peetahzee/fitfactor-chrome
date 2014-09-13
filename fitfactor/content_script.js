@@ -1,3 +1,6 @@
+var CHROME_APP_ID = 'jlljinddnhmcpjdfoiepcaeaojgegcpc';
+var EXTENSION_ID = 'gahfcakeibfejbgkacehbdaojiglmboj';
+
 var blockDiv = document.createElement('div');
 blockDiv.setAttribute('id', 'veil');
 blockDiv.innerHTML = '<i class="fa fa-minus-circle"></i><h1>Blocked</h1><p>Sit up straight!</p>';
@@ -21,3 +24,12 @@ chrome.runtime.onMessage.addListener(
   	}
   }
 );
+
+window.onload = function() {
+  // check chorme app
+  chrome.runtime.sendMessage(CHROME_APP_ID, { mode: 'getVeilActive' });
+
+  console.log('hello');
+  // check extension
+  chrome.runtime.sendMessage(EXTENSION_ID, { mode: 'getVeilActive'});
+};
