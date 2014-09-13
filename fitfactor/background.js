@@ -22,6 +22,9 @@ chrome.runtime.onStartup.addListener(init);
 
 chrome.runtime.onConnectExternal.addListener(function(port) {
   port.onMessage.addListener(send);
+  port.onMessage.addListener(function(msg){
+    console.log(msg);
+  });
 });
 
 function notify(userId, forUserId){

@@ -1,4 +1,4 @@
-var veilCounter = 0;
+var slouchCount = 0;
 
 function onReceive(info){
   var buf = info.data;
@@ -10,20 +10,22 @@ function onReceive(info){
 
   //simple saturation counter to prevent flickering
   if(!good) {
-    veilCounter++;
-  } else {
-    veilCounter = 3;
+    slouchCount++;
+  } else if(slouchCount > 4) {
+    slouchCount = 3;
+  } else if(slouchCount > 0) {
+    slouchCount--;
   }
 
-  if(veilCounter > 4) {
-    sendMsg({veil: true});
-  } else {
-    sendMsg({veil: false});
-  }
+  sendMsg({
+    slouch: slouchCount > 4
+  });
+
+  console.log(slouchCount);
 }
 
 function sendMsg(msg) {
-  var laserExtensionId = "gahfcakeibfejbgkacehbdaojiglmboj";
+  var laserExtensionId = "hcoibkkgaadbdmoifphicfielhmmmkci";
   var port = chrome.runtime.connect(laserExtensionId);
   port.postMessage(msg);
 }
