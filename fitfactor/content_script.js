@@ -2,6 +2,7 @@ var blockDiv = null;
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+  	console.log(request)
   	if(request.veil) {
   		if (!blockDiv) {
 		 		blockDiv = document.createElement('div');

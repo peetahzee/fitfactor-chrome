@@ -1,8 +1,8 @@
 document.getElementById('off').onclick = function() {
-	sendMsg({off: true});
+	sendMsg({veil: false});
 }
 document.getElementById('on').onclick = function() {
-	sendMsg({on: true});
+	sendMsg({veil: true});
 }
 function sendMsg(msg) { 
 	var laserExtensionId = "gahfcakeibfejbgkacehbdaojiglmboj";
