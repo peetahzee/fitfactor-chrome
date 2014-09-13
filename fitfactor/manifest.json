@@ -5,7 +5,16 @@
   "description": "Chrome Extension and Android app to block social networking/other sites until you meet your fitness goals",
   "version": "1.0",
 
-  "optional_permissions": [
+  "content_scripts": [
+    {
+      "matches": ["http://*/", "https://*/"],
+      "js": ["content_script.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
     "http://*/",
     "https://*/"
   ],
