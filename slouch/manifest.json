@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "FitFactor",
+  "description": "Chrome Extension and Android app to block social networking/other sites until you meet your fitness goals",
+  "version": "1.0",
+
+  "permissions": [
+    "serial"
+  ],
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "optional_permissions": [
+    "http://*/",
+    "https://*/"
+  ]
+}
