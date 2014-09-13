@@ -1,6 +1,19 @@
-chrome.runtime.onStartup.addListener(function(){
-  Parse.initialize("kKHah32xHCgNU7we80esxavR7rlecBjMV0sNtYjt", "TnxvmngkwSx7xGsWq29Y6W4acVXFp9uC093b3CjT");
-});
+var user = null;
+
+function init(){
+  Parse.initialize('KqI3fIwrmgp1rep6UX31wZipcJACRJwtG66GNYoV', 'Xc5WRZyHmPAA0VeCJjKOcHJi8avThuzwlOQOX2pP');
+
+  user = new Parse.User();
+
+  // Set your id to desired user object id
+  user.id = '6IFfy1uAcv';
+
+  setInterval(checkParse, 1000);
+}
+
+init();
+
+chrome.runtime.onStartup.addListener(init);
 
 chrome.runtime.onConnectExternal.addListener(function(port) {
   port.onMessage.addListener(function(msg) {
@@ -14,3 +27,41 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
 
   });
 });
+
+function notify(userId){
+  var notifyUser = new Parse.User();
+  notifyUser.id = userId;
+
+  var query = new Parse.Query(Parse.Installation);
+  query.equalTo('userid', notifyUser);
+
+  Parse.Push.send({
+    where: query,
+    data: {msg: 'hi david'}
+  }, {
+    success: function() {
+      console.log('success');
+    },
+    error: function(error) {
+      alert("Error: " + error.code + " " + error.message);
+    }
+  });
+}
+
+function checkParse(){
+  var StepCountUpdate = Parse.Object.extend('StepCountUpdate');
+  var query = new Parse.Query(StepCountUpdate);
+  query.equalTo('user', user);
+  query.find({
+    success: function(results) {
+      // Do something with the returned Parse.Object values
+      for (var i = 0; i < results.length; i++) {
+        var object = results[i];
+        //alert(object.id + ' - ' + object.get('value'));
+      }
+    },
+    error: function(error) {
+      alert("Error: " + error.code + " " + error.message);
+    }
+  });
+}
