@@ -7,15 +7,26 @@
 	height: 100%;
 	z-index: 9999;
 	opacity: 0;
-	transition: 1s opacity;
-	font-family: "Helvetica Neue";
-	padding: 10%;
+	transition: 1s opacity, 1s -webkit-filter;
+	font-family: "Roboto Condensed";
 	color: #fff;
 	text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
-	pointer-events:none;
+	pointer-events: none;
+	-webkit-filter: blur(3px);
+
+	text-align: center;
 }
 #veil.active {
 	opacity: 1;
+	-webkit-filter: blur(0px);
+	pointer-events: auto;
+}
+
+#veil > div {
+	width: 400px;
+	margin: 0 auto;
+	text-align: left;
+	padding-top: 300px;
 }
 
 #veil h1 {
@@ -37,4 +48,14 @@
 	font-size: 20px;
 	font-weight: 300;
 	margin: 0;
+}
+
+#veil #ff-progress {
+	margin-top: 15px;
+	background: rgba(255, 255, 255 ,0.1);
+}
+
+#ff-progress-completed {
+	height: 10px;
+	background: rgba(255, 255, 255 ,0.2);
 }

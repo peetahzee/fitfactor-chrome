@@ -20,7 +20,6 @@ function onReceive(info){
   sendMsg({
     slouch: slouchCount > 4
   });
-
   console.log(slouchCount);
 }
 

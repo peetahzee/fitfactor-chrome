@@ -5,7 +5,7 @@ var stepsGoal = 10;
 //var goalInterval = 20 * 60 * 60 * 1000;
 var goalInterval = 60 * 1000;
 
-var slouch = false;
+var slouch = true;
 
 function init(){
   Parse.initialize('KqI3fIwrmgp1rep6UX31wZipcJACRJwtG66GNYoV', 'Xc5WRZyHmPAA0VeCJjKOcHJi8avThuzwlOQOX2pP');
