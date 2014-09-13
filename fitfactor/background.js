@@ -5,6 +5,8 @@ var stepsGoal = 10;
 //var goalInterval = 20 * 60 * 60 * 1000;
 var goalInterval = 60 * 1000;
 
+var slouch = false;
+
 function init(){
   Parse.initialize('KqI3fIwrmgp1rep6UX31wZipcJACRJwtG66GNYoV', 'Xc5WRZyHmPAA0VeCJjKOcHJi8avThuzwlOQOX2pP');
 
@@ -23,7 +25,9 @@ chrome.runtime.onStartup.addListener(init);
 chrome.runtime.onConnectExternal.addListener(function(port) {
   port.onMessage.addListener(send);
   port.onMessage.addListener(function(msg){
-    console.log(msg);
+    if(msg.hasOwnProperty('slouch')) {
+      slouch = msg.slouch;
+    }
   });
 });
 
@@ -55,7 +59,7 @@ function checkParse(callback){
   getSteps(function(steps) {
     isFriendUnlock(function(friendUnlock) {
       var message = {
-        slouch: false,
+        slouch: slouch,
         steps: steps > stepsGoal,
         stepsCount: steps,
         stepsGoal: stepsGoal,
