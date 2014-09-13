@@ -76,14 +76,6 @@ function checkParse(){
   });
 }
 
-function unblock() {
-  send({veil: false});
-}
-
-function block() {
-  send({veil: true});
-}
-
 function send(msg) {
   console.log(msg);
   chrome.tabs.query({url: 'https://www.facebook.com/*'}, function(tabs) {
