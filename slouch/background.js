@@ -1,6 +1,13 @@
-function onReceive(connectionId, data){
+function onReceive(info){
+  var buf = info.data;
+
+  var bytes = new Int8Array(buf);
+
+  //arduino writes ascii
+  var good = bytes[0] == 49;
+
   var contentWindow = chrome.app.window.getAll()[0].contentWindow;
-  contentWindow.document.body.innerHTML += data;
+  contentWindow.document.body.innerHTML += (good == 1) ? "true" : "false";
 }
 
 chrome.app.runtime.onLaunched.addListener(function() {
@@ -27,7 +34,6 @@ chrome.app.runtime.onLaunched.addListener(function() {
 
     chrome.serial.connect(port, function(connectionInfo){
       console.log('connected!');
-      onReceive(0, "hello");
 
       chrome.serial.onReceive.addListener(onReceive)
     });
