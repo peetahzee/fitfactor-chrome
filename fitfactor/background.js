@@ -33,7 +33,7 @@ function notify(userId){
   notifyUser.id = userId;
 
   var query = new Parse.Query(Parse.Installation);
-  query.equalTo('userid', notifyUser);
+  query.equalTo('user', notifyUser);
 
   Parse.Push.send({
     where: query,
