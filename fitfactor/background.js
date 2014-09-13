@@ -55,10 +55,8 @@ function checkParse(callback){
         slouch: false,
         steps: steps > stepsGoal,
         stepsCount: steps,
-        stepsGoal: {
-          count: stepsGoal,
-          interval: goalInterval
-        },
+        stepsGoal: stepsGoal,
+        interval: goalInterval,
         friendUnlock: friendUnlock
       };
 
@@ -93,6 +91,7 @@ function isFriendUnlock(callback) {
   var FriendUnlock = Parse.Object.extend('FriendUnlock');
   var friendQuery = new Parse.Query(FriendUnlock);
   friendQuery.equalTo('unlockFor', user);
+  friendQuery.greaterThan('createdAt', new Date(new Date().getTime() - goalInterval));
 
   friendQuery.count({
     success: function(count) {
