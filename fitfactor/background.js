@@ -56,7 +56,7 @@ function checkParse(){
       }
     },
     error: function(error) {
-      alert("Error: " + error.code + " " + error.message);
+      console.error("Error: " + error.code + " " + error.message);
     }
   });
 }
