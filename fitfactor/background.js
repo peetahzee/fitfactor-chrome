@@ -16,19 +16,10 @@ init();
 chrome.runtime.onStartup.addListener(init);
 
 chrome.runtime.onConnectExternal.addListener(function(port) {
-  port.onMessage.addListener(function(msg) {
-  	console.log(msg);
-  	chrome.tabs.query({url: 'https://www.facebook.com/*'}, function(tabs) {
-  		tabs.forEach(function(tab) {
-  			chrome.tabs.sendMessage(tab.id, msg);
-  		});
-
-		});
-
-  });
+  port.onMessage.addListener(send);
 });
 
-function notify(userId){
+function notify(userId, forUserId){
   var notifyUser = new Parse.User();
   notifyUser.id = userId;
 
@@ -37,7 +28,11 @@ function notify(userId){
 
   Parse.Push.send({
     where: query,
-    data: {msg: 'hi david'}
+    data: {
+            alert: 'Vinnie requested an unlock',
+            title: 'FitFactor',
+            forUser: forUserId
+          }
   }, {
     success: function() {
       console.log('success');
@@ -63,5 +58,22 @@ function checkParse(){
     error: function(error) {
       alert("Error: " + error.code + " " + error.message);
     }
+  });
+}
+
+function unblock() {
+  send({veil: false});
+}
+
+function block() {
+  send({veil: true});
+}
+
+function send(msg) {
+  console.log(msg);
+  chrome.tabs.query({url: 'https://www.facebook.com/*'}, function(tabs) {
+    tabs.forEach(function(tab) {
+      chrome.tabs.sendMessage(tab.id, msg);
+    });
   });
 }
