@@ -26,17 +26,15 @@ chrome.runtime.onMessage.addListener(
     veilActive = true;
     message = '';
 
-    if (state.friendUnlock) {
-      veilActive = false;
+
+    if (state.slouch) {
+      veilActive = true;
+      message = 'Sit up straight!'
     } else {
-      veilActive = !(!state.slouch && state.steps);
-      if (state.slouch) {
-        message = 'Sit up straight!'
-      } else if (!state.steps) {
-        message = 'Work out more. ' + state.stepsCount + ' / ' + state.stepsGoal + ' steps walked today.'
-        document.getElementById('ff-progress-completed')
-          .setAttribute('style', 'width:' + (state.stepsCount / state.stepsGoal) + 'px');
-      }
+      veilActive = !state.friendUnlock && !state.steps;
+      message = 'Work out more. ' + state.stepsCount + ' / ' + state.stepsGoal + ' steps walked today.'
+      document.getElementById('ff-progress-completed')
+        .setAttribute('style', 'width:' + (state.stepsCount / state.stepsGoal) + '%');
     }
 
     blockDiv.setAttribute('class', veilActive ? 'active' : '');
