@@ -1,8 +1,21 @@
 <!doctype html>
 <html>
 <head>
+	<link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-FitFactor
+	<h1>FitFactor</h1>
+
+	<form id="prefs" onsubmit="return false">
+		<label for="goal">Goal</label>
+		<input id="goal" name="goal"></input>
+
+		<label for="blacklist">Blacklisted Sites:</label>
+		<textarea id="blacklist" name="blacklist"></textarea>
+
+		<input type="submit" value="Submit" />
+	</form>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="popup.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ var stepsGoal = 10;
 //20 hours in ms
 //var goalInterval = 20 * 60 * 60 * 1000;
 var goalInterval = 60 * 1000;
+var blacklist = ['facebook.com'];
 
 var slouch = true;
 
@@ -16,6 +17,7 @@ function init(){
   user.id = '6IFfy1uAcv';
 
   setInterval(checkParse, 1000);
+  updateConfig();
 }
 
 init();
@@ -30,6 +32,26 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
     }
   });
 });
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log('update');
+    console.log(request);
+    if (request.mode == 'updateConfig') {
+      updateConfig();
+    }
+  }
+);
+
+function updateConfig() {
+  chrome.storage.sync.get({
+    goal: 10,
+    blacklist: ['facebook.com']
+  }, function(items) {
+    stepsGoal = items.goal;
+    blacklist = items.blacklist;
+  });
+}
 
 function notify(userId, forUserId){
   var notifyUser = new Parse.User();
@@ -113,9 +135,12 @@ function isFriendUnlock(callback) {
 
 function send(msg) {
   console.log(msg);
-  chrome.tabs.query({url: 'https://www.facebook.com/*'}, function(tabs) {
-    tabs.forEach(function(tab) {
-      chrome.tabs.sendMessage(tab.id, msg);
+  blacklist.forEach(function(site) {
+    console.log(site);
+    chrome.tabs.query({url: '*://*.' + site + '/*'}, function(tabs) {
+      tabs.forEach(function(tab) {
+        chrome.tabs.sendMessage(tab.id, msg);
+      });
     });
   });
 }
