@@ -3,7 +3,7 @@ var user = null;
 var stepsGoal = 10;
 //20 hours in ms
 //var goalInterval = 20 * 60 * 60 * 1000;
-var goalInterval = 60 * 1000;
+var goalInterval = 20 * 1000;
 var blacklist = ['facebook.com'];
 
 var slouch = false;
