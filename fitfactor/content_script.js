@@ -29,8 +29,8 @@ chrome.runtime.onMessage.addListener(
     if (state.friendUnlock) {
       veilActive = false;
     } else {
-      veilActive = !(state.slouch && state.steps);
-      if (!state.slouch) {
+      veilActive = !(!state.slouch && state.steps);
+      if (state.slouch) {
         message = 'Sit up straight!'
       } else if (!state.steps) {
         message = 'Work out more. ' + state.stepsCount + ' / ' + state.stepsGoal + ' steps walked today.'

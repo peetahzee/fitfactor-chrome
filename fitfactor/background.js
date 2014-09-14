@@ -25,10 +25,11 @@ init();
 chrome.runtime.onStartup.addListener(init);
 
 chrome.runtime.onConnectExternal.addListener(function(port) {
-  port.onMessage.addListener(send);
   port.onMessage.addListener(function(msg){
     if(msg.hasOwnProperty('slouch')) {
       slouch = msg.slouch;
+    } else {
+      send(msg);
     }
   });
 });
@@ -48,7 +49,7 @@ function updateConfig() {
     goal: 10,
     blacklist: ['facebook.com']
   }, function(items) {
-    stepsGoal = items.goal;
+    stepsGoal = parseInt(items.goal);
     blacklist = items.blacklist;
   });
 }
