@@ -6,7 +6,7 @@ var stepsGoal = 10;
 var goalInterval = 60 * 1000;
 var blacklist = ['facebook.com'];
 
-var slouch = true;
+var slouch = false;
 
 function init(){
   Parse.initialize('KqI3fIwrmgp1rep6UX31wZipcJACRJwtG66GNYoV', 'Xc5WRZyHmPAA0VeCJjKOcHJi8avThuzwlOQOX2pP');
@@ -40,6 +40,15 @@ chrome.runtime.onMessage.addListener(
       updateConfig();
     } else if (request.mode == 'ask-friend') {
       console.log('ask-friend');
+      var query = new Parse.Query(Parse.Object.extend('_User'));
+
+      query.get(user.id, {
+        success: function(obj) {
+          notify('ZNjI31UEKL', user.id)
+        }, error: function(obj, err) {
+          console.error(err);
+        }
+      })
     }
   }
 );
@@ -60,6 +69,8 @@ function notify(userId, forUserId){
 
   var query = new Parse.Query(Parse.Installation);
   query.equalTo('user', notifyUser);
+
+  console.log('notifying');
 
   Parse.Push.send({
     where: query,
@@ -92,7 +103,7 @@ function checkParse(callback){
 
       send(message);
     });
-  })
+  });
 }
 
 function getSteps(callback) {
