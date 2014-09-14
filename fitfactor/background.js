@@ -6,7 +6,7 @@ var stepsGoal = 10;
 var goalInterval = 60 * 1000;
 var blacklist = ['facebook.com'];
 
-var slouch = true;
+var slouch = false;
 
 function init(){
   Parse.initialize('KqI3fIwrmgp1rep6UX31wZipcJACRJwtG66GNYoV', 'Xc5WRZyHmPAA0VeCJjKOcHJi8avThuzwlOQOX2pP');
