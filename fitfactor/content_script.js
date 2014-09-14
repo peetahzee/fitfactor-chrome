@@ -8,6 +8,7 @@ html += '<i class="fa fa-minus-circle"></i>';
 html += '<h1>Access Blocked.</h1>';
 html += '<p id="ff-message"></p>';
 html += '<div id="ff-progress"><div id="ff-progress-completed"></div></div>';
+html += '<button id="ff-friend-button">Ask a friend to unlock ></button>';
 
 html += '</div>';
 blockDiv.innerHTML = html;
@@ -42,3 +43,7 @@ chrome.runtime.onMessage.addListener(
     document.getElementById('ff-message').innerHTML = message;
   }
 );
+
+document.getElementById('ff-friend-button').onclick = function() {
+  chrome.runtime.sendMessage({mode: 'ask-friend'});
+}

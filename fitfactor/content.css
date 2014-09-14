@@ -59,3 +59,22 @@
 	height: 10px;
 	background: rgba(255, 255, 255 ,0.2);
 }
+
+#veil button {
+	margin-top: 15px;
+	border: none;
+	padding: 10px 15px;
+	background: rgba(255, 255, 255, 0.3);
+	font-family: "Roboto Condensed";
+	font-size: 15px;
+	color: #fff;
+	text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+	transition: 0.3s background;
+	text-align: right;
+	cursor: pointer;
+	float: right;
+}
+
+#veil button:hover {
+	background: rgba(255, 255, 255, 0.25);
+}

@@ -35,10 +35,10 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log('update');
-    console.log(request);
     if (request.mode == 'updateConfig') {
       updateConfig();
+    } else if (request.mode == 'ask-friend') {
+      console.log('ask-friend');
     }
   }
 );
@@ -134,9 +134,7 @@ function isFriendUnlock(callback) {
 }
 
 function send(msg) {
-  console.log(msg);
   blacklist.forEach(function(site) {
-    console.log(site);
     chrome.tabs.query({url: '*://*.' + site + '/*'}, function(tabs) {
       tabs.forEach(function(tab) {
         chrome.tabs.sendMessage(tab.id, msg);
